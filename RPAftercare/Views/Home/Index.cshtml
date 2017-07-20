@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<p>
+    <a href="https://www.accuweather.com/en/za/cape-town/306633/weather-forecast/306633" class="aw-widget-legal">
+    </a><div id="awcc1500562276066" class="aw-widget-current" data-locationkey="306633" data-unit="c" data-language="en-us" data-useip="false" data-uid="awcc1500562276066"></div>
+    <script type="text/javascript" src="https://oap.accuweather.com/launch.js"></script>
+</p>
+
+<p>
+    <h1 style="color:black; font-family:'Times New Roman', Times, serif"><u>RP Aftercare</u></h1>
+    <!--<p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>-->
+</p>
+<div class="row">
+    <div class="col-md-4">
+        <img src="~/Images/redPanda.png" class="img-thumbnail" />
+        <h2>@Html.ActionLink("Parents", "Index", "tblParents")</h2>
+        <p>
+            <strong>A list of all the parents and their details.</strong>
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        @*<p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>*@
+    </div>
+    <div class="col-md-4">
+        <img src="~/Images/redPanda.png" class="img-thumbnail" />
+        <h2>@Html.ActionLink("Children", "Index", "tblChilds")</h2>
+        <p><strong>List of all the children who attend the aftercare.</strong></p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        @*<p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>*@
+    </div>
+    <div class="col-md-4">
+        <img src="~/Images/redPanda.png" class="img-thumbnail" />
+        <h2>@Html.ActionLink("Relationship", "Index", "tblParentChilds")</h2>
+        <p><strong>Parent/Child Relationship.</strong></p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        @*<p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>*@
+    </div>
+</div>

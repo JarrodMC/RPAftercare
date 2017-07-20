@@ -1,0 +1,39 @@
+﻿@model IEnumerable<RPAftercare.Models.tblUpload>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Upload a new File!", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.fileName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.filePath)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.fileName)
+        </td>
+        <td>
+            <img src="@Url.Content(item.filePath)" alt="File" height="75" width="75" />
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.UploadID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.UploadID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.UploadID })
+        </td>
+    </tr>
+}
+
+</table>

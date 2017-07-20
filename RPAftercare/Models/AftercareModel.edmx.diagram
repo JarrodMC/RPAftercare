@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="36baa055e5ce474996684a6be4867de3" Name="Diagram1">
+        <EntityTypeShape EntityType="AftercareModel.tblChild" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="AftercareModel.tblParent" Width="1.5" PointX="5.875" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="AftercareModel.tblParentChild" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="AftercareModel.FK_tblParentChild_tblChild" />
+        <AssociationConnector Association="AftercareModel.FK_tblParentChild_tblParent" />
+        <EntityTypeShape EntityType="AftercareModel.tblUpload" Width="1.5" PointX="2.375" PointY="0.875" />
+        <AssociationConnector Association="AftercareModel.FK_tblParentChild_tblParentChild" />
+        <EntityTypeShape EntityType="AftercareModel.tblExpense" Width="1.5" PointX="8.375" PointY="5" />
+        <EntityTypeShape EntityType="AftercareModel.tblIncome" Width="1.5" PointX="3.5" PointY="5" />
+        <EntityTypeShape EntityType="AftercareModel.tblUser" Width="1.5" PointX="6" PointY="5" />
+        <AssociationConnector Association="AftercareModel.FK_tblExpense_tblUser" />
+        <AssociationConnector Association="AftercareModel.FK_tblIncome_tblUser" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

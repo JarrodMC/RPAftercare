@@ -1,0 +1,468 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AftercareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblChild">
+          <Key>
+            <PropertyRef Name="ChildID" />
+          </Key>
+          <Property Name="ChildID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Grade" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Age" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblExpense">
+          <Key>
+            <PropertyRef Name="ExpID" />
+          </Key>
+          <Property Name="ExpID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ExpAmount" Type="varchar(max)" Nullable="false" />
+          <Property Name="expDesc" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="expDate" Type="date" Nullable="false" />
+          <Property Name="expRemarks" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblIncome">
+          <Key>
+            <PropertyRef Name="IncID" />
+          </Key>
+          <Property Name="IncID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="incAmount" Type="varchar(max)" Nullable="false" />
+          <Property Name="incDesc" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="incDate" Type="date" Nullable="false" />
+          <Property Name="incRemarks" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblParent">
+          <Key>
+            <PropertyRef Name="ParentID" />
+          </Key>
+          <Property Name="ParentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDNumber" Type="bigint" Nullable="false" />
+          <Property Name="WorkNo" Type="varchar" MaxLength="50" />
+          <Property Name="HomeNo" Type="varchar" MaxLength="50" />
+          <Property Name="CellNo" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblParentChild">
+          <Key>
+            <PropertyRef Name="ParentChildID" />
+          </Key>
+          <Property Name="ParentChildID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentID" Type="int" Nullable="false" />
+          <Property Name="ChildID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblUpload">
+          <Key>
+            <PropertyRef Name="UploadID" />
+          </Key>
+          <Property Name="UploadID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fileName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="filePath" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateAdded" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblExpense_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
+          <End Role="tblExpense" Type="Self.tblExpense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblExpense">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblIncome_tblUser">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
+          <End Role="tblIncome" Type="Self.tblIncome" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblIncome">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblParentChild_tblChild">
+          <End Role="tblChild" Type="Self.tblChild" Multiplicity="1" />
+          <End Role="tblParentChild" Type="Self.tblParentChild" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblChild">
+              <PropertyRef Name="ChildID" />
+            </Principal>
+            <Dependent Role="tblParentChild">
+              <PropertyRef Name="ChildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblParentChild_tblParent">
+          <End Role="tblParent" Type="Self.tblParent" Multiplicity="1" />
+          <End Role="tblParentChild" Type="Self.tblParentChild" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblParent">
+              <PropertyRef Name="ParentID" />
+            </Principal>
+            <Dependent Role="tblParentChild">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblParentChild_tblParentChild">
+          <End Role="tblParentChild" Type="Self.tblParentChild" Multiplicity="1" />
+          <End Role="tblParentChild1" Type="Self.tblParentChild" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblParentChild">
+              <PropertyRef Name="ParentChildID" />
+            </Principal>
+            <Dependent Role="tblParentChild1">
+              <PropertyRef Name="ParentChildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblParentChild_tblParentChild1">
+          <End Role="tblParentChild" Type="Self.tblParentChild" Multiplicity="1" />
+          <End Role="tblParentChild1" Type="Self.tblParentChild" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblParentChild">
+              <PropertyRef Name="ParentChildID" />
+            </Principal>
+            <Dependent Role="tblParentChild1">
+              <PropertyRef Name="ParentChildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AftercareModelStoreContainer">
+          <EntitySet Name="tblChild" EntityType="Self.tblChild" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblExpense" EntityType="Self.tblExpense" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblIncome" EntityType="Self.tblIncome" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblParent" EntityType="Self.tblParent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblParentChild" EntityType="Self.tblParentChild" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUpload" EntityType="Self.tblUpload" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblExpense_tblUser" Association="Self.FK_tblExpense_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblExpense" EntitySet="tblExpense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblIncome_tblUser" Association="Self.FK_tblIncome_tblUser">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblIncome" EntitySet="tblIncome" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblParentChild_tblChild" Association="Self.FK_tblParentChild_tblChild">
+            <End Role="tblChild" EntitySet="tblChild" />
+            <End Role="tblParentChild" EntitySet="tblParentChild" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblParentChild_tblParent" Association="Self.FK_tblParentChild_tblParent">
+            <End Role="tblParent" EntitySet="tblParent" />
+            <End Role="tblParentChild" EntitySet="tblParentChild" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblParentChild_tblParentChild" Association="Self.FK_tblParentChild_tblParentChild">
+            <End Role="tblParentChild" EntitySet="tblParentChild" />
+            <End Role="tblParentChild1" EntitySet="tblParentChild" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblParentChild_tblParentChild1" Association="Self.FK_tblParentChild_tblParentChild1">
+            <End Role="tblParentChild" EntitySet="tblParentChild" />
+            <End Role="tblParentChild1" EntitySet="tblParentChild" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AftercareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblChild">
+          <Key>
+            <PropertyRef Name="ChildID" />
+          </Key>
+          <Property Name="ChildID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Grade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Age" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblParentChilds" Relationship="AftercareModel.FK_tblParentChild_tblChild" FromRole="tblChild" ToRole="tblParentChild" />
+        </EntityType>
+        <EntityType Name="tblParent">
+          <Key>
+            <PropertyRef Name="ParentID" />
+          </Key>
+          <Property Name="ParentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDNumber" Type="Int64" Nullable="false" />
+          <Property Name="WorkNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HomeNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CellNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblParentChilds" Relationship="AftercareModel.FK_tblParentChild_tblParent" FromRole="tblParent" ToRole="tblParentChild" />
+        </EntityType>
+        <EntityType Name="tblParentChild">
+          <Key>
+            <PropertyRef Name="ParentChildID" />
+          </Key>
+          <Property Name="ParentChildID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentID" Type="Int32" Nullable="false" />
+          <Property Name="ChildID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tblChild" Relationship="AftercareModel.FK_tblParentChild_tblChild" FromRole="tblParentChild" ToRole="tblChild" />
+          <NavigationProperty Name="tblParent" Relationship="AftercareModel.FK_tblParentChild_tblParent" FromRole="tblParentChild" ToRole="tblParent" />
+          <NavigationProperty Name="tblParentChild1" Relationship="AftercareModel.FK_tblParentChild_tblParentChild" FromRole="tblParentChild" ToRole="tblParentChild1" />
+          <NavigationProperty Name="tblParentChild2" Relationship="AftercareModel.FK_tblParentChild_tblParentChild" FromRole="tblParentChild1" ToRole="tblParentChild" />
+        </EntityType>
+        <EntityContainer Name="AftercareEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblChilds" EntityType="Self.tblChild" />
+          <EntitySet Name="tblParents" EntityType="Self.tblParent" />
+          <EntitySet Name="tblParentChilds" EntityType="Self.tblParentChild" />
+          <AssociationSet Name="FK_tblParentChild_tblChild" Association="AftercareModel.FK_tblParentChild_tblChild">
+            <End Role="tblChild" EntitySet="tblChilds" />
+            <End Role="tblParentChild" EntitySet="tblParentChilds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblParentChild_tblParent" Association="AftercareModel.FK_tblParentChild_tblParent">
+            <End Role="tblParent" EntitySet="tblParents" />
+            <End Role="tblParentChild" EntitySet="tblParentChilds" />
+          </AssociationSet>
+          <EntitySet Name="tblUploads" EntityType="AftercareModel.tblUpload" />
+          <AssociationSet Name="FK_tblParentChild_tblParentChild" Association="AftercareModel.FK_tblParentChild_tblParentChild">
+            <End Role="tblParentChild" EntitySet="tblParentChilds" />
+            <End Role="tblParentChild1" EntitySet="tblParentChilds" />
+          </AssociationSet>
+          <EntitySet Name="tblExpenses" EntityType="AftercareModel.tblExpense" />
+          <EntitySet Name="tblIncomes" EntityType="AftercareModel.tblIncome" />
+          <EntitySet Name="tblUsers" EntityType="AftercareModel.tblUser" />
+          <AssociationSet Name="FK_tblExpense_tblUser" Association="AftercareModel.FK_tblExpense_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblExpense" EntitySet="tblExpenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblIncome_tblUser" Association="AftercareModel.FK_tblIncome_tblUser">
+            <End Role="tblUser" EntitySet="tblUsers" />
+            <End Role="tblIncome" EntitySet="tblIncomes" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_tblParentChild_tblChild">
+          <End Type="AftercareModel.tblChild" Role="tblChild" Multiplicity="1" />
+          <End Type="AftercareModel.tblParentChild" Role="tblParentChild" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblChild">
+              <PropertyRef Name="ChildID" />
+            </Principal>
+            <Dependent Role="tblParentChild">
+              <PropertyRef Name="ChildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblParentChild_tblParent">
+          <End Type="AftercareModel.tblParent" Role="tblParent" Multiplicity="1" />
+          <End Type="AftercareModel.tblParentChild" Role="tblParentChild" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblParent">
+              <PropertyRef Name="ParentID" />
+            </Principal>
+            <Dependent Role="tblParentChild">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblUpload">
+          <Key>
+            <PropertyRef Name="UploadID" />
+          </Key>
+          <Property Name="UploadID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fileName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="filePath" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_tblParentChild_tblParentChild">
+          <End Type="AftercareModel.tblParentChild" Role="tblParentChild" Multiplicity="1" />
+          <End Type="AftercareModel.tblParentChild" Role="tblParentChild1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblParentChild">
+              <PropertyRef Name="ParentChildID" />
+            </Principal>
+            <Dependent Role="tblParentChild1">
+              <PropertyRef Name="ParentChildID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblExpense">
+          <Key>
+            <PropertyRef Name="ExpID" />
+          </Key>
+          <Property Name="ExpID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ExpAmount" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="expDesc" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="expDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="expRemarks" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblUser" Relationship="AftercareModel.FK_tblExpense_tblUser" FromRole="tblExpense" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblIncome">
+          <Key>
+            <PropertyRef Name="IncID" />
+          </Key>
+          <Property Name="IncID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="incAmount" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="incDesc" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="incDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="incRemarks" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblUser" Relationship="AftercareModel.FK_tblIncome_tblUser" FromRole="tblIncome" ToRole="tblUser" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="tblExpenses" Relationship="AftercareModel.FK_tblExpense_tblUser" FromRole="tblUser" ToRole="tblExpense" />
+          <NavigationProperty Name="tblIncomes" Relationship="AftercareModel.FK_tblIncome_tblUser" FromRole="tblUser" ToRole="tblIncome" />
+        </EntityType>
+        <Association Name="FK_tblExpense_tblUser">
+          <End Type="AftercareModel.tblUser" Role="tblUser" Multiplicity="1" />
+          <End Type="AftercareModel.tblExpense" Role="tblExpense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblExpense">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblIncome_tblUser">
+          <End Type="AftercareModel.tblUser" Role="tblUser" Multiplicity="1" />
+          <End Type="AftercareModel.tblIncome" Role="tblIncome" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="tblIncome">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AftercareModelStoreContainer" CdmEntityContainer="AftercareEntities">
+          <EntitySetMapping Name="tblChilds">
+            <EntityTypeMapping TypeName="AftercareModel.tblChild">
+              <MappingFragment StoreEntitySet="tblChild">
+                <ScalarProperty Name="ChildID" ColumnName="ChildID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblParents">
+            <EntityTypeMapping TypeName="AftercareModel.tblParent">
+              <MappingFragment StoreEntitySet="tblParent">
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+                <ScalarProperty Name="WorkNo" ColumnName="WorkNo" />
+                <ScalarProperty Name="HomeNo" ColumnName="HomeNo" />
+                <ScalarProperty Name="CellNo" ColumnName="CellNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblParentChilds">
+            <EntityTypeMapping TypeName="AftercareModel.tblParentChild">
+              <MappingFragment StoreEntitySet="tblParentChild">
+                <ScalarProperty Name="ParentChildID" ColumnName="ParentChildID" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="ChildID" ColumnName="ChildID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUploads">
+            <EntityTypeMapping TypeName="AftercareModel.tblUpload">
+              <MappingFragment StoreEntitySet="tblUpload">
+                <ScalarProperty Name="filePath" ColumnName="filePath" />
+                <ScalarProperty Name="fileName" ColumnName="fileName" />
+                <ScalarProperty Name="UploadID" ColumnName="UploadID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblExpenses">
+            <EntityTypeMapping TypeName="AftercareModel.tblExpense">
+              <MappingFragment StoreEntitySet="tblExpense">
+                <ScalarProperty Name="expRemarks" ColumnName="expRemarks" />
+                <ScalarProperty Name="expDate" ColumnName="expDate" />
+                <ScalarProperty Name="expDesc" ColumnName="expDesc" />
+                <ScalarProperty Name="ExpAmount" ColumnName="ExpAmount" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ExpID" ColumnName="ExpID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblIncomes">
+            <EntityTypeMapping TypeName="AftercareModel.tblIncome">
+              <MappingFragment StoreEntitySet="tblIncome">
+                <ScalarProperty Name="incRemarks" ColumnName="incRemarks" />
+                <ScalarProperty Name="incDate" ColumnName="incDate" />
+                <ScalarProperty Name="incDesc" ColumnName="incDesc" />
+                <ScalarProperty Name="incAmount" ColumnName="incAmount" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="IncID" ColumnName="IncID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="AftercareModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
